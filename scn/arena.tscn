@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://tx6231g63y6f"]
+[gd_scene load_steps=7 format=3 uid="uid://tx6231g63y6f"]
 
 [ext_resource type="Texture2D" uid="uid://d2gdtjut5urmm" path="res://dat/spr/fancy-court.png" id="1_6yxsv"]
 [ext_resource type="PackedScene" uid="uid://bewwk2y3qelpx" path="res://scn/paddle.tscn" id="2_qlmy5"]
 [ext_resource type="Texture2D" uid="uid://c5pxxylru4frd" path="res://dat/spr/fancy-paddle-green.png" id="3_yryxx"]
+[ext_resource type="PackedScene" uid="uid://bb23dab7xfk5o" path="res://scn/ball.tscn" id="4_h28ej"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j1erk"]
 normal = Vector2(0, 1)
@@ -39,5 +40,7 @@ player_character = false
 
 [node name="Sprite2D" parent="Paddle2" index="0"]
 texture = ExtResource("3_yryxx")
+
+[node name="Ball" parent="." instance=ExtResource("4_h28ej")]
 
 [editable path="Paddle2"]
