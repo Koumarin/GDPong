@@ -3,8 +3,31 @@
 [ext_resource type="Texture2D" uid="uid://d2gdtjut5urmm" path="res://dat/spr/fancy-court.png" id="1_6yxsv"]
 [ext_resource type="PackedScene" uid="uid://bewwk2y3qelpx" path="res://scn/paddle.tscn" id="2_qlmy5"]
 [ext_resource type="Texture2D" uid="uid://c5pxxylru4frd" path="res://dat/spr/fancy-paddle-green.png" id="3_yryxx"]
-[ext_resource type="PackedScene" uid="uid://bb23dab7xfk5o" path="res://scn/ball.tscn" id="4_h28ej"]
 [ext_resource type="Script" path="res://src/ui.gd" id="5_b15ko"]
+
+[sub_resource type="GDScript" id="GDScript_ecofs"]
+script/source = "extends Node2D
+
+const ball_scene := preload('res://scn/ball.tscn')
+
+var _ball: RigidBody2D = null
+
+@onready var ball_start_position := %BallStartPosition
+
+func _ready() -> void:
+	_create_new_ball()
+
+func _create_new_ball() -> void:
+	_ball = ball_scene.instantiate()
+	_ball.position = ball_start_position.position
+	
+	add_child(_ball)
+
+func _on_ball_left_arena(_body: Node2D) -> void:
+	_ball.queue_free()
+	
+	_create_new_ball()
+"
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j1erk"]
 normal = Vector2(0, 1)
@@ -18,6 +41,7 @@ normal = Vector2(1, 0)
 normal = Vector2(-1, 0)
 
 [node name="Arena" type="Node2D"]
+script = SubResource("GDScript_ecofs")
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 40.0
@@ -63,7 +87,10 @@ player_character = false
 [node name="Sprite2D" parent="Paddle2" index="0"]
 texture = ExtResource("3_yryxx")
 
-[node name="Ball" parent="." instance=ExtResource("4_h28ej")]
+[node name="BallStartPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(400, 300)
+gizmo_extents = 32.0
 
 [node name="UI" type="HBoxContainer" parent="."]
 offset_left = 10.0
@@ -84,7 +111,9 @@ size_flags_horizontal = 10
 text = "0
 "
 
+[connection signal="body_entered" from="LeftGoal" to="." method="_on_ball_left_arena"]
 [connection signal="body_entered" from="LeftGoal" to="UI" method="_on_left_goal_body_entered"]
+[connection signal="body_entered" from="RightGoal" to="." method="_on_ball_left_arena"]
 [connection signal="body_entered" from="RightGoal" to="UI" method="_on_right_goal_body_entered"]
 
 [editable path="Paddle2"]
