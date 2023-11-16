@@ -21,7 +21,7 @@ func _create_new_ball() -> void:
 	_ball = ball_scene.instantiate()
 	_ball.position = ball_start_position.position
 	
-	add_child(_ball)
+	call_deferred('add_child', _ball)
 
 func _on_ball_left_arena(_body: Node2D) -> void:
 	_ball.queue_free()
