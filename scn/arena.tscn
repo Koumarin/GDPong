@@ -1,14 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://tx6231g63y6f"]
+[gd_scene load_steps=10 format=3 uid="uid://tx6231g63y6f"]
 
 [ext_resource type="Texture2D" uid="uid://d2gdtjut5urmm" path="res://dat/spr/fancy-court.png" id="1_6yxsv"]
 [ext_resource type="PackedScene" uid="uid://bewwk2y3qelpx" path="res://scn/paddle.tscn" id="2_qlmy5"]
 [ext_resource type="Texture2D" uid="uid://c5pxxylru4frd" path="res://dat/spr/fancy-paddle-green.png" id="3_yryxx"]
 [ext_resource type="PackedScene" uid="uid://bb23dab7xfk5o" path="res://scn/ball.tscn" id="4_h28ej"]
+[ext_resource type="Script" path="res://src/ui.gd" id="5_b15ko"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j1erk"]
 normal = Vector2(0, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b6xnv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yjuw3"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d1ymt"]
+normal = Vector2(-1, 0)
 
 [node name="Arena" type="Node2D"]
 
@@ -42,5 +49,42 @@ player_character = false
 texture = ExtResource("3_yryxx")
 
 [node name="Ball" parent="." instance=ExtResource("4_h28ej")]
+
+[node name="LeftGoal" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftGoal"]
+shape = SubResource("WorldBoundaryShape2D_yjuw3")
+
+[node name="RightGoal" type="Area2D" parent="."]
+position = Vector2(800, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightGoal"]
+shape = SubResource("WorldBoundaryShape2D_d1ymt")
+
+[node name="UI" type="HBoxContainer" parent="."]
+offset_left = 10.0
+offset_right = 790.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("5_b15ko")
+
+[node name="PlayerOneScoreLabel" type="Label" parent="UI"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0
+"
+
+[node name="PlayerTwoScoreLabel" type="Label" parent="UI"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "0
+"
+
+[connection signal="body_entered" from="LeftGoal" to="UI" method="_on_left_goal_body_entered"]
+[connection signal="body_entered" from="RightGoal" to="UI" method="_on_right_goal_body_entered"]
 
 [editable path="Paddle2"]
