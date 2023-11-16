@@ -79,6 +79,7 @@ collision_mask = 2
 shape = SubResource("WorldBoundaryShape2D_d1ymt")
 
 [node name="Paddle" parent="." instance=ExtResource("2_qlmy5")]
+position = Vector2(40, 300)
 
 [node name="Paddle2" parent="." instance=ExtResource("2_qlmy5")]
 position = Vector2(760, 300)

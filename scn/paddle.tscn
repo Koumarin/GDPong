@@ -1,13 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bewwk2y3qelpx"]
+[gd_scene load_steps=3 format=3 uid="uid://bewwk2y3qelpx"]
 
 [ext_resource type="Script" path="res://src/paddle.gd" id="1_sklqo"]
 [ext_resource type="Texture2D" uid="uid://wpo10evp51yc" path="res://dat/spr/fancy-paddle-blue.png" id="2_i3o2i"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o383u"]
-size = Vector2(32, 128)
-
-[node name="Paddle" type="CharacterBody2D"]
-position = Vector2(40, 300)
+[node name="CharacterBody2D" type="CharacterBody2D"]
 collision_mask = 512
 motion_mode = 1
 script = ExtResource("1_sklqo")
@@ -17,5 +13,5 @@ player_character = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_i3o2i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_o383u")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, -16, -16, 16, 0, 64, 16, 16, 16, -16, 0, -64)
