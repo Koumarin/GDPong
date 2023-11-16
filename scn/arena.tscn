@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://tx6231g63y6f"]
+[gd_scene load_steps=4 format=3 uid="uid://tx6231g63y6f"]
 
 [ext_resource type="Texture2D" uid="uid://d2gdtjut5urmm" path="res://dat/spr/fancy-court.png" id="1_6yxsv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j1erk"]
-normal = Vector2(1, 0)
-distance = 800.0
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b6xnv"]
 
 [node name="Arena" type="Node2D"]
 
@@ -14,12 +15,16 @@ offset_bottom = 40.0
 texture = ExtResource("1_6yxsv")
 
 [node name="TopWall" type="StaticBody2D" parent="."]
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
 shape = SubResource("WorldBoundaryShape2D_j1erk")
 
 [node name="BottomWall" type="StaticBody2D" parent="."]
 position = Vector2(0, 600)
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
-shape = SubResource("WorldBoundaryShape2D_j1erk")
+shape = SubResource("WorldBoundaryShape2D_b6xnv")
