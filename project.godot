@@ -43,6 +43,12 @@ player-two-down={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Paddles"
+2d_physics/layer_2="Balls"
+2d_physics/layer_10="Walls"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
