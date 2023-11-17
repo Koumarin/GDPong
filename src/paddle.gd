@@ -5,9 +5,6 @@ extends CharacterBody2D
 
 var _direction := Vector2.ZERO
 
-func _ready() -> void:
-	pass
-
 func _process(_delta: float) -> void:
 	_direction = Vector2.ZERO
 	
